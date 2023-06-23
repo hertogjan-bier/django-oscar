@@ -8,6 +8,7 @@ class UserCancelled(PaymentError):
     after the process has started -- for example if they press a "Cancel"
     button on a third-party payment platform.
     """
+
     pass
 
 
@@ -31,6 +32,7 @@ class InsufficientPaymentSources(PaymentError):
     Eg. When selecting an allocation off a giftcard but not specifying a
     bankcard to take the remainder from.
     """
+
     pass
 
 
@@ -49,4 +51,5 @@ class UnableToTakePayment(PaymentError):
     expiry date has passed).  The message passed here will be shown to the end
     user.
     """
+
     pass

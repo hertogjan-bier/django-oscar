@@ -34,7 +34,7 @@ class FlashMessages(object):
     def as_dict(self):
         payload = {}
         for level, msgs in self.msgs.items():
-            tag = messages.DEFAULT_TAGS.get(level, 'info')
+            tag = messages.DEFAULT_TAGS.get(level, "info")
             payload[tag] = [str(msg) for msg in msgs]
         return payload
 

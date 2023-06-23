@@ -4,7 +4,7 @@ class SurchargeList(list):
         return sum([surcharge.price for surcharge in self])
 
 
-class SurchargePrice():
+class SurchargePrice:
     surcharge = None
     price = None
 
@@ -13,8 +13,7 @@ class SurchargePrice():
         self.price = price
 
 
-class SurchargeApplicator():
-
+class SurchargeApplicator:
     def __init__(self, request=None, context=None):
         self.context = context
         self.request = request
@@ -35,10 +34,7 @@ class SurchargeApplicator():
 
     def get_applicable_surcharges(self, basket, **kwargs):
         methods = [
-            SurchargePrice(
-                surcharge,
-                surcharge.calculate(basket=basket, **kwargs)
-            )
+            SurchargePrice(surcharge, surcharge.calculate(basket=basket, **kwargs))
             for surcharge in self.get_surcharges(basket=basket, **kwargs)
             if self.is_applicable(surcharge=surcharge, basket=basket, **kwargs)
         ]

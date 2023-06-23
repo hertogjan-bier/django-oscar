@@ -17,6 +17,6 @@ def annotate_form_field(parser, token):
     warnings.warn(
         "The annotate_form_field template tag is deprecated and will be removed in the next version of django-oscar",
         RemovedInOscar32Warning,
-        stacklevel=2
+        stacklevel=2,
     )
-    return TextNode('')
+    return TextNode("")

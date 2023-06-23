@@ -7,7 +7,7 @@ from oscar.core.loading import get_class
 
 logger = logging.getLogger(__name__)
 
-AlertsDispatcher = get_class('customer.alerts.utils', 'AlertsDispatcher')
+AlertsDispatcher = get_class("customer.alerts.utils", "AlertsDispatcher")
 
 
 class Command(BaseCommand):
@@ -15,8 +15,8 @@ class Command(BaseCommand):
     Check stock records of products for availability and send out alerts
     to customers that have registered for an alert.
     """
-    help = _("Check for products that are back in "
-             "stock and send out alerts")
+
+    help = _("Check for products that are back in " "stock and send out alerts")
 
     def handle(self, **options):
         """

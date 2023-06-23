@@ -12,7 +12,7 @@ from oscar.test import factories
 from oscar.test.basket import add_product
 from tests._site.model_tests_app.models import BasketOwnerCalledBarry
 
-Selector = get_class('partner.strategy', 'Selector')
+Selector = get_class("partner.strategy", "Selector")
 
 
 @pytest.fixture
@@ -27,16 +27,12 @@ def range():
 
 @pytest.fixture
 def range_all():
-    return factories.RangeFactory(
-        name="All products range", includes_all_products=True
-    )
+    return factories.RangeFactory(name="All products range", includes_all_products=True)
 
 
 @pytest.fixture
 def range_some(products_some):
-    return factories.RangeFactory(
-        name="Some products", products=products_some
-    )
+    return factories.RangeFactory(name="Some products", products=products_some)
 
 
 @pytest.fixture
@@ -73,7 +69,6 @@ def mock_offer():
 
 @pytest.mark.django_db
 class TestCountCondition:
-
     @pytest.fixture(autouse=True)
     def setUp(self, mock_offer):
         self.offer = mock_offer
@@ -218,7 +213,6 @@ class TestValueCondition:
 
 @pytest.mark.django_db
 class TestCoverageCondition:
-
     @pytest.fixture(autouse=True)
     def setUp(self, range_some, products_some, empty_basket, coverage_condition):
         self.products = products_some
@@ -336,31 +330,36 @@ class TestCustomCondition(TestCase):
 
 
 class TestOffersWithCountCondition(TestCase):
-
     def setUp(self):
         super().setUp()
 
         self.basket = factories.create_basket(empty=True)
 
         # Create range and add one product to it.
-        rng = factories.RangeFactory(name='All products', includes_all_products=True)
+        rng = factories.RangeFactory(name="All products", includes_all_products=True)
         self.product = factories.ProductFactory()
         rng.add_product(self.product)
 
         # Create a non-exclusive offer #1.
-        condition1 = factories.ConditionFactory(range=rng, value=D('1'))
-        benefit1 = factories.BenefitFactory(range=rng, value=D('10'))
+        condition1 = factories.ConditionFactory(range=rng, value=D("1"))
+        benefit1 = factories.BenefitFactory(range=rng, value=D("10"))
         self.offer1 = factories.ConditionalOfferFactory(
-            condition=condition1, benefit=benefit1, start_datetime=now(),
-            name='Test offer #1', exclusive=False,
+            condition=condition1,
+            benefit=benefit1,
+            start_datetime=now(),
+            name="Test offer #1",
+            exclusive=False,
         )
 
         # Create a non-exclusive offer #2.
-        condition2 = factories.ConditionFactory(range=rng, value=D('1'))
-        benefit2 = factories.BenefitFactory(range=rng, value=D('5'))
+        condition2 = factories.ConditionFactory(range=rng, value=D("1"))
+        benefit2 = factories.BenefitFactory(range=rng, value=D("5"))
         self.offer2 = factories.ConditionalOfferFactory(
-            condition=condition2, benefit=benefit2, start_datetime=now(),
-            name='Test offer #2', exclusive=False,
+            condition=condition2,
+            benefit=benefit2,
+            start_datetime=now(),
+            name="Test offer #2",
+            exclusive=False,
         )
 
     def add_product(self):

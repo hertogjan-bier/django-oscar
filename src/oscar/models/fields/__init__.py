@@ -16,6 +16,7 @@ class Creator(object):
     """
     A placeholder class that provides a way to set the attribute on the model.
     """
+
     def __init__(self, field):
         self.field = field
 
@@ -32,7 +33,7 @@ class ExtendedURLField(CharField):
     description = _("URL")
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = kwargs.get('max_length', 200)
+        kwargs["max_length"] = kwargs.get("max_length", 200)
         CharField.__init__(self, *args, **kwargs)
         self.validators.append(validators.ExtendedURLValidator())
 
@@ -42,7 +43,7 @@ class ExtendedURLField(CharField):
         twice.
         """
         defaults = {
-            'form_class': fields.ExtendedURLField,
+            "form_class": fields.ExtendedURLField,
         }
         defaults.update(kwargs)
         return super().formfield(**defaults)
@@ -54,7 +55,7 @@ class ExtendedURLField(CharField):
         name, path, args, kwargs = super().deconstruct()
         # We have a default value for max_length; remove it in that case
         if self.max_length == 200:
-            del kwargs['max_length']
+            del kwargs["max_length"]
         return name, path, args, kwargs
 
 
@@ -63,6 +64,7 @@ class PositiveDecimalField(DecimalField):
     A simple subclass of ``django.db.models.fields.DecimalField`` that
     restricts values to be non-negative.
     """
+
     def formfield(self, **kwargs):
         """
         Return a :py:class:`django.forms.Field` instantiated with a ``min_value`` of 0.
@@ -77,8 +79,7 @@ class UppercaseCharField(CharField):
     """
 
     def contribute_to_class(self, cls, name, **kwargs):
-        super().contribute_to_class(
-            cls, name, **kwargs)
+        super().contribute_to_class(cls, name, **kwargs)
         setattr(cls, self.name, Creator(self))
 
     def from_db_value(self, value, *args, **kwargs):
@@ -102,13 +103,13 @@ class NullCharField(CharField):
 
     Django's CharField stores '' as None, but does not return None as ''.
     """
+
     description = "CharField that stores '' as None and returns None as ''"
 
     def __init__(self, *args, **kwargs):
-        if not kwargs.get('null', True) or not kwargs.get('blank', True):
-            raise ImproperlyConfigured(
-                "NullCharField implies null==blank==True")
-        kwargs['null'] = kwargs['blank'] = True
+        if not kwargs.get("null", True) or not kwargs.get("blank", True):
+            raise ImproperlyConfigured("NullCharField implies null==blank==True")
+        kwargs["null"] = kwargs["blank"] = True
         super().__init__(*args, **kwargs)
 
     def contribute_to_class(self, cls, name, **kwargs):
@@ -118,7 +119,7 @@ class NullCharField(CharField):
     def from_db_value(self, value, *args, **kwargs):
         value = self.to_python(value)
         # If the value was stored as null, return empty string instead
-        return value if value is not None else ''
+        return value if value is not None else ""
 
     def get_prep_value(self, value):
         prepped = super().get_prep_value(value)
@@ -129,6 +130,6 @@ class NullCharField(CharField):
         deconstruct() is needed by Django's migration framework
         """
         name, path, args, kwargs = super().deconstruct()
-        del kwargs['null']
-        del kwargs['blank']
+        del kwargs["null"]
+        del kwargs["blank"]
         return name, path, args, kwargs

@@ -70,7 +70,7 @@ class OfferTest(TestCase):
         self.assertEqual(
             basket.total_excl_tax + basket.total_tax,
             basket.total_incl_tax,
-            "The tax summation should amount to the total_incl_tax"
+            "The tax summation should amount to the total_incl_tax",
         )
 
     def test_offer_incl_tax(self):

@@ -7,12 +7,13 @@ from django.core.exceptions import ImproperlyConfigured
 from oscar.core.loading import get_model
 
 # A setting that can be used in foreign key declarations
-AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
+AUTH_USER_MODEL = getattr(settings, "AUTH_USER_MODEL", "auth.User")
 try:
-    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME = AUTH_USER_MODEL.rsplit('.', 1)
+    AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME = AUTH_USER_MODEL.rsplit(".", 1)
 except ValueError:
-    raise ImproperlyConfigured("AUTH_USER_MODEL must be of the form"
-                               " 'app_label.model_name'")
+    raise ImproperlyConfigured(
+        "AUTH_USER_MODEL must be of the form" " 'app_label.model_name'"
+    )
 
 
 def get_user_model():
@@ -35,7 +36,8 @@ def get_user_model():
         # original get_user_model method in Django.
         raise ImproperlyConfigured(
             "AUTH_USER_MODEL refers to model '%s' that has not been installed"
-            % settings.AUTH_USER_MODEL)
+            % settings.AUTH_USER_MODEL
+        )
 
     # Test if user model has any custom fields and add attributes to the _meta
     # class
@@ -78,11 +80,14 @@ class UnicodeCSVWriter:
       with UnicodeCSVWriter(filename=filename) as writer:
           ...
     """
-    def __init__(self, filename=None, open_file=None, dialect=csv.excel,
-                 encoding="utf-8", **kw):
+
+    def __init__(
+        self, filename=None, open_file=None, dialect=csv.excel, encoding="utf-8", **kw
+    ):
         if filename is open_file is None:
             raise ImproperlyConfigured(
-                "You need to specify either a filename or an open file")
+                "You need to specify either a filename or an open file"
+            )
         self.filename = filename
         self.f = open_file
         self.dialect = dialect
@@ -95,7 +100,7 @@ class UnicodeCSVWriter:
 
     def __enter__(self):
         assert self.filename is not None
-        self.f = open(self.filename, 'wt', encoding=self.encoding, newline='')
+        self.f = open(self.filename, "wt", encoding=self.encoding, newline="")
         self.add_bom(self.f)
         return self
 
@@ -107,9 +112,10 @@ class UnicodeCSVWriter:
     def add_bom(self, f):
         # If encoding is UTF-8, insert a Byte Order Mark at the start of the
         # file for compatibility with MS Excel.
-        if (self.encoding == 'utf-8'
-                and getattr(settings, 'OSCAR_CSV_INCLUDE_BOM', False)):
-            self.f.write('\ufeff')
+        if self.encoding == "utf-8" and getattr(
+            settings, "OSCAR_CSV_INCLUDE_BOM", False
+        ):
+            self.f.write("\ufeff")
 
     def writerow(self, row):
         if self.writer is None:

@@ -4,9 +4,9 @@ from oscar.core.application import OscarConfig
 
 
 class VoucherConfig(OscarConfig):
-    label = 'voucher'
-    name = 'oscar.apps.voucher'
-    verbose_name = _('Voucher')
+    label = "voucher"
+    name = "oscar.apps.voucher"
+    verbose_name = _("Voucher")
 
     def ready(self):
         from . import receivers  # noqa

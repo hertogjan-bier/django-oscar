@@ -68,9 +68,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run linters
-      run: |
-        flake8 src tests setup.py
-        isort -c -q --diff src/ tests/
+      run: make lint
   lint_js:
     runs-on: ubuntu-latest
     steps:

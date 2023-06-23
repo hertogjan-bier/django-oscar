@@ -8,8 +8,9 @@ from oscar.apps.offer.applicator import Applicator  # backwards-compat  # noqa
 
 def range_anchor(range):
     return '<a href="%s">%s</a>' % (
-        reverse('dashboard:range-update', kwargs={'pk': range.pk}),
-        range.name)
+        reverse("dashboard:range-update", kwargs={"pk": range.pk}),
+        range.name,
+    )
 
 
 def unit_price(offer, line):
@@ -22,14 +23,16 @@ def unit_price(offer, line):
 
 
 def load_proxy(proxy_class):
-    module, classname = proxy_class.rsplit('.', 1)
+    module, classname = proxy_class.rsplit(".", 1)
     try:
         mod = import_module(module)
     except ImportError as e:
         raise exceptions.ImproperlyConfigured(
-            "Error importing module %s: %s" % (module, e))
+            "Error importing module %s: %s" % (module, e)
+        )
     try:
         return getattr(mod, classname)
     except AttributeError:
         raise exceptions.ImproperlyConfigured(
-            "Module %s does not define a %s" % (module, classname))
+            "Module %s does not define a %s" % (module, classname)
+        )

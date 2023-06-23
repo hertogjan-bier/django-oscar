@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from oscar.apps.catalogue.signals import product_viewed
 from oscar.core.loading import get_class
 
-CustomerHistoryManager = get_class('customer.history', 'CustomerHistoryManager')
+CustomerHistoryManager = get_class("customer.history", "CustomerHistoryManager")
 
 
 @receiver(product_viewed)

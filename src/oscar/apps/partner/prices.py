@@ -55,6 +55,7 @@ class FixedPrice(Base):
     TaxInclusiveFixedPrice class if you want offers to use tax-inclusive
     prices.
     """
+
     exists = True
 
     def __init__(self, currency, excl_tax, tax=None):
@@ -66,8 +67,7 @@ class FixedPrice(Base):
     def incl_tax(self):
         if self.is_tax_known:
             return self.excl_tax + self.tax
-        raise prices.TaxNotKnown(
-            "Can't calculate price.incl_tax as tax isn't known")
+        raise prices.TaxNotKnown("Can't calculate price.incl_tax as tax isn't known")
 
     @property
     def is_tax_known(self) -> bool:
@@ -83,6 +83,7 @@ class TaxInclusiveFixedPrice(FixedPrice):
     specifies that offers should use the tax-inclusive price (which is the norm
     in the UK).
     """
+
     exists = is_tax_known = True
 
     def __init__(self, currency, excl_tax, tax):

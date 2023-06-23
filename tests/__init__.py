@@ -6,6 +6,7 @@ class temporary_python_path(object):
     Acts as a context manager to temporarily prepend a list of paths to
     sys.path
     """
+
     def __init__(self, paths):
         self.paths = paths
 
@@ -24,7 +25,7 @@ def delete_from_import_cache(module_name):
 
     Useful in situations where dynamically-created files are imported.
     """
-    parts = module_name.split('.')
+    parts = module_name.split(".")
     for i, _ in enumerate(parts, 1):
-        submodule_name = '.'.join(parts[:i])
+        submodule_name = ".".join(parts[:i])
         del sys.modules[submodule_name]

@@ -7,7 +7,6 @@ from oscar.core.prices import TaxNotKnown
 
 
 class TestUnavailable(TestCase):
-
     def setUp(self):
         self.price = prices.Unavailable()
 
@@ -24,15 +23,14 @@ class TestUnavailable(TestCase):
 
 
 class TestFixedPriceWithoutTax(TestCase):
-
     def setUp(self):
-        self.price = prices.FixedPrice('GBP', D('9.15'))
+        self.price = prices.FixedPrice("GBP", D("9.15"))
 
     def test_means_unknown_tax(self):
         self.assertFalse(self.price.is_tax_known)
 
     def test_has_correct_price(self):
-        self.assertEqual(D('9.15'), self.price.excl_tax)
+        self.assertEqual(D("9.15"), self.price.excl_tax)
 
     def test_raises_exception_when_asking_for_price_incl_tax(self):
         with self.assertRaises(TaxNotKnown):
